@@ -1,0 +1,24 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card-form {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.hidden {
+    display: none;
+}
