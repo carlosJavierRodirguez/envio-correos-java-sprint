@@ -487,6 +487,93 @@ public class EmailService {
     }
 
     // Envio de correo para informar stock bajo
+    public void bajoStockEmail(String addresMail) {
+        try {
+
+            // Asunto y cuerpo del correo
+            String subject = "Estock bajo";
+
+            // Cuerpo del correo
+            String bodyMail = """
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <style>
+                            body {
+                                font-family: 'Arial', sans-serif;
+                                background-color: #f9f9f9;
+                                margin: 0;
+                                padding: 0;
+                                color: #333;
+                            }
+                            .container {
+                                max-width: 600px;
+                                margin: 30px auto;
+                                background-color: #ffffff;
+                                border-radius: 10px;
+                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                                overflow: hidden;
+                                padding: 20px;
+                            }
+                            .header {
+                                background-color: #FF9800;
+                                color: white;
+                                text-align: center;
+                                padding: 20px;
+                                border-radius: 10px 10px 0 0;
+                            }
+                            .header h1 {
+                                margin: 0;
+                                font-size: 24px;
+                            }
+                            .content {
+                                padding: 20px;
+                                text-align: left;
+                            }
+                            .content p {
+                                font-size: 16px;
+                                margin: 10px 0;
+                                line-height: 1.6;
+                            }
+                            .footer {
+                                text-align: center;
+                                font-size: 12px;
+                                color: #777;
+                                margin-top: 20px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="header">
+                                <h1>¡Alerta de Bajo Stock!</h1>
+                            </div>
+                            <div class="content">
+                                <p>Hola,</p>
+                                <p>Te informamos que uno o más productos en tu inventario están alcanzando niveles críticos de stock.</p>
+                                <p>Por favor, revisa los siguientes productos y toma las medidas necesarias:</p>
+                                <ul>
+                                    <li><strong>Producto:</strong> [Nombre del producto]</li>
+                                    <li><strong>Cantidad actual:</strong> [Cantidad]</li>
+                                    <li><strong>Stock mínimo recomendado:</strong> [Stock mínimo]</li>
+                                </ul>
+                                <p>Es importante reabastecer estos productos lo antes posible para evitar interrupciones en tus operaciones.</p>
+                                <p>Gracias,</p>
+                                <p>El equipo de soporte</p>
+                            </div>
+                            <div class="footer">
+                                <p>© 2025 Tu Empresa. Todos los derechos reservados.</p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    """;
+
+            emailSender(addresMail, subject, bodyMail);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public boolean emailSender(String addresMail, String subject, String bodyMail) throws MessagingException {
         try {

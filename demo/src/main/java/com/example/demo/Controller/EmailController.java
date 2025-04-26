@@ -1,13 +1,18 @@
 package com.example.demo.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.DTO.ResponseDTO;
 import com.example.demo.service.EmailService;
 
 @RestController
+@RequestMapping("/api/v1/email")
 public class EmailController {
 
     @Autowired
@@ -22,51 +27,67 @@ public class EmailController {
         return "correo enviado";
     }
 
-    // manda un correo al email de nuevo usuario
+    // Método corregido para devolver un JSON con ResponseDTO
     @GetMapping("/nuevoUsuario/{email}")
-    public String avancedEmail(@PathVariable String email) {
-
+    public ResponseEntity<ResponseDTO> avancedEmail(@PathVariable String email) {
         emailService.avancedEmail(email);
 
-        return "correo de nuevo usuario enviado";
+        // Respuesta como objeto ResponseDTO
+        ResponseDTO response = new ResponseDTO(
+                "Correo de nuevo usuario enviado exitosamente.",
+                "success");
+
+        return ResponseEntity.ok(response); // Retorna un JSON
     }
 
-    // manda un correo al email del usuario con codigo de recuperación
+    // Manda un correo al email del usuario con código de recuperación
     @GetMapping("/clave/{email}")
-    public String recuperarClave(@PathVariable String email) {
-
+    public ResponseEntity<ResponseDTO> recuperarClave(@PathVariable String email) {
         emailService.recuperarClave(email);
 
-        return "correo para recuperar la clave enviado";
+        // Retornar la respuesta en formato JSON
+        ResponseDTO response = new ResponseDTO("Correo para recuperar la clave enviado", "success");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    /*
-     * manda un correo al email para decirle al usuario que su correo se activo
-     * correctamente
-     */
+    // Manda un correo al email para decirle al usuario que su correo se activó
+    // correctamente
     @GetMapping("/activacion/{email}")
-    public String activacionEmail(@PathVariable String email) {
-
+    public ResponseEntity<ResponseDTO> activacionEmail(@PathVariable String email) {
         emailService.activacionEmail(email);
 
-        return "Correo para activar la cuenta enviado";
+        // Retornar la respuesta en formato JSON
+        ResponseDTO response = new ResponseDTO("Correo para activar la cuenta enviado", "success");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // envia un correo para cambiar la clave
+    // Envía un correo para cambiar la clave
     @GetMapping("/cambiarClave/{email}")
-    public String cambiarClave(@PathVariable String email) {
-
+    public ResponseEntity<ResponseDTO> cambiarClave(@PathVariable String email) {
         emailService.cambiarClave(email);
 
-        return "correo para cambiar la clave enviado";
+        // Retornar la respuesta en formato JSON
+        ResponseDTO response = new ResponseDTO("Correo para cambiar la clave enviado", "success");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // correo para informar que la compra se ha realizado con exito
+    // Correo para informar que la compra se ha realizado con éxito
     @GetMapping("/compraEmail/{email}")
-    public String compraEmail(@PathVariable String email) {
-
+    public ResponseEntity<ResponseDTO> compraEmail(@PathVariable String email) {
         emailService.compraEmail(email);
 
-        return "correo de prueba enviado";
+        // Retornar la respuesta en formato JSON
+        ResponseDTO response = new ResponseDTO("Correo de prueba enviado", "success");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    // Correo para informar que el stock de los productos está bajo
+    @GetMapping("/bajoStock/{email}")
+    public ResponseEntity<ResponseDTO> bajoStockEmail(@PathVariable String email) {
+        emailService.bajoStockEmail(email);
+
+        // Retornar la respuesta en formato JSON
+        ResponseDTO response = new ResponseDTO("Correo de bajo Stock enviado", "success");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
